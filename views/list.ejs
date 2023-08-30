@@ -1,0 +1,69 @@
+<%- include('partials/header.ejs') %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <title>To Do List v1</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="topList">
+        <h1 class="topHeader"><%= currentTitle %></h1>
+      </div>
+
+      <div class="todaysList">
+        <% if (locals.newListItems) { %> <% newListItems.forEach((item) => { %>
+        <form action="/delete" method="post">
+          <div class="item">
+            <input
+              type="checkbox"
+              name="toCheckBox"
+              value="<%= item._id %>"
+              class="checkBox"
+              onChange="this.form.submit()"
+            />
+            <p class="newListAdded"><%= item.name %></p>
+          </div>
+          <input type="hidden" name="listName" value="<%= currentTitle %>" />
+        </form>
+        <% }); %>
+
+        <form class="newaddedItem" action="/" method="post">
+          <input
+            type="text"
+            class="newInputItem"
+            name="newItem"
+            id="task-text"
+            placeholder="New Item"
+            autocomplete="off"
+            required
+          />
+          <button
+            type="submit"
+            class="addItemButton"
+            name="list"
+            value="<%= currentTitle %>"
+          >
+            +
+          </button>
+        </form>
+        <%}%>
+      </div>
+    </div>
+    <footer>
+      <div class="text left">Copyright © <%= new Date().getFullYear(); %></div>
+      <div class="text">
+        <a
+          href="mailto:omaralzubi903@gmail.com"
+          style="text-decoration: none"
+          class="middle"
+          >Contact Us
+        </a>
+      </div>
+      <div class="text right">Creative Solutions By Omar</div>
+    </footer>
+  </body>
+</html>
